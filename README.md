@@ -105,9 +105,8 @@ This project is licensed under the MIT License. See [here](https://en.wikipedia.
 
 ## Authors notes
 
-    I'm by no means an expert in Godot. In fact, I'm still learning how it works because I heard so much about it, and I've always wanted to make games. But... I heard about how easy it is to extract game files, access their source codes, and essentially steal from someone who likely spent a lot of time and possibly money to create something they genuinely care about. So I made these.
-
-Feel free to modify any sections or details to better fit your needs!
+  I'm by no means an expert in Godot. In fact, I'm still learning how it works because I heard so much about it, and I've always wanted to make games. But... I heard about how easy it is to extract game files, access their source codes, and essentially steal from someone who likely spent a lot of time and possibly money to create something they genuinely care about. So I made these.  
+  Feel free to modify any sections or details to better fit your needs!
 
 ### Future plans
 
