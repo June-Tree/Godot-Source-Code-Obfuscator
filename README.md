@@ -36,8 +36,8 @@ To use the scripts, you need to have Python 3.x installed on your PC. You can do
 Clone the repository:
 
 ```bash
-git clone https://github.com/June-Tree/Godot-Source-Code-Obfuscatior.git
-cd godot-source-obfuscator
+git clone https://github.com/June-Tree/Godot-Source-Code-Obfuscator.git
+cd godot-source-code-obfuscator/scripts
 ```
 
 ## Usage
