@@ -1,7 +1,7 @@
 # <p align="center">Godot Source Code Obfuscator</p>
 
 This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared constants, variables, functions, classes, and extends, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
-**This should be done on source files prior to exporting the game**
+**This should be done on source files prior to exporting the game through the engine**
 
 ## Table of Contents
 
@@ -13,6 +13,8 @@ This repository contains a set of Python scripts designed for obfuscating and un
     - [Obfuscating a Folder](#obfuscating-a-folder)
     - [Example](#obfuscation-example)
   - [Unobfuscating Code](#unobfuscating-code)
+    - [Unobfuscating a File](#unobfuscating-code)
+    - [Unobfuscating a Folder](#unobfuscating-a-folder)
     - [Example](#unobfuscation-example)
 - [Contributing](#contributing)
 - [License](#license)
@@ -56,7 +58,7 @@ python <unobfuscation_script.py>
 
 #### Prompts
 
-1. **Directory path (file or folder)**. The script will handle it accordingly.
+1. **Directory path (file or folder)**: The script will handle it accordingly.
 
 2. **Overwrite Original**: You will be asked if you want to overwrite the original file(s). **DO NOT SAY _"YES"_ IF THIS IS THE ONLY COPY YOU HAVE**. Saying "yes" will overwrite the file, while saying "no" will create a copy and obfuscate that instead.  
 This prompt is essentally a guard rail to prevent data loss or irreversible damage.
@@ -65,11 +67,12 @@ This prompt is essentally a guard rail to prevent data loss or irreversible dama
 
 #### Obfuscating a Folder
 
-The script will walk through the provided folder and check every file in every subfolder for .gd files to obfuscate them.  
+The script will walk through the provided folder and check every file in every subfolder for `.gd` files to obfuscate them.  
 You will be asked if you would like to copy the folder structure for the name map files.
 
 - Saying "yes" (recommended) will create a separate folder following the original structure, making unobfuscation easier.
-- Saying "no" will create a separate folder with all name maps placed in the same location. Files with the same name will have an increment attached to prevent overwriting, but you will need to manually match them during unobfuscation.
+- Saying "no" will create a separate folder with all name maps placed in the same location. Files with the same name will have an increment attached to prevent overwriting.  
+This is fine if the number of `.gd` files is small, and you have no problem manually placing each file in their counterpart's locations, or if you just want everything in one place, and you feel you likely will need to fix bugs in individual files anyway. If not, it's best to say "yes".
 
 #### Obfuscation example
 
@@ -81,13 +84,20 @@ ___
 
 ### Unobfuscating Code
 
+The unobfuscation process involves retrieving the scrambled data's initial form from the name map file(s) and restoring the code(s) to readable states.  
+Make sure each obfuscated `.gd` file you would like to restore has its counterpart name map `.txt` in the same folder.
+
+#### Unobfuscating a Folder
+
+- If when obfuscating, you chose to follow the original structure of the source code, all you'd need to do is copy and paste the contents of the name map folder into the obfuscated source code folder, and each name map file will be placed next to their respective files.
+- If when obfuscating, you chose not to follow the original structure of the source code, you will need to manually copy and paste each individual `.gd` file to their counterpart's locations.  
+**Don't forget to remove the increment attached at their ends, as this will cause them to be ignored, and the restoration for the related file to be skipped**
+
 To unobfuscate a previously obfuscated Godot source code file, use the following command:
 
 ```bash
 python <unobfuscation_script.py>
 ```
-
-The unobfuscation process involves running the script, which will handle user prompts for file directory input and other options. Feel free to make any additional adjustments!
 
 #### Unobfuscation example
 
@@ -105,7 +115,7 @@ This project is licensed under the MIT License. See [MIT License details](https:
 
 ## Authors notes
 
-  I'm by no means an expert in Godot. In fact, I'm still learning how it works because I heard so much about it, and I've always wanted to make games. But... I heard about how easy it is to extract game files, access their source codes, and essentially steal from someone who likely spent a lot of time and possibly money to create something they genuinely care about. So I made these.  
+  I'm by no means an expert in Godot. In fact, I'm still learning how it works because I heard so much about it, and I've always wanted to make games. But...I also heard about how easy it is to extract game files, access their source codes, and essentially steal from someone who likely spent a lot of time and possibly money to create something they genuinely care about. So I made these.  
   Feel free to modify any sections or details to better fit your needs!
 
 ### Future plans
