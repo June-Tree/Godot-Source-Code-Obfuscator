@@ -112,6 +112,10 @@ def main():
     input_path = input("Enter the directory or file path containing GDScript files: ")
     overwrite = input("Do you want to overwrite the original files? (yes/no): ").strip().lower() == 'yes'
     name_length = int(input("Enter the desired length for generated names: "))
+    #Check if name_length is a number
+    while not isinstance(name_length, int) or name_length <= 0:
+        print("Please enter a valid positive integer for name length.")
+        name_length = int(input("Enter the desired length for generated names: "))
 
     # Check if the input is a directory or a file
     if os.path.isfile(input_path) and input_path.endswith('.gd') and not input_path.endswith('_obfuscated.gd'):
