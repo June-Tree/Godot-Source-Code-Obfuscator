@@ -33,7 +33,7 @@ This repository contains a set of Python scripts designed for obfuscating and un
 
 To use the scripts, you need to have Python 3.x installed on your PC. You can download it from [python.org](https://www.python.org/downloads/).
 
-1. Clone the repository:
+Clone the repository:
 
     ```bash
     git clone https://github.com/June-Tree/Godot-Source-Code-Obfuscatior.git
