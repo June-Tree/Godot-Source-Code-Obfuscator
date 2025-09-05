@@ -40,12 +40,6 @@ To use the scripts, you need to have Python 3.x installed on your PC. You can do
     cd godot-source-obfuscator
     ```
 
-2. Install any required dependencies (if applicable):
-
-    ```bash
-    pip install -r requirements.txt
-    ```
-
 ## Usage
 
 ### Obfuscating Code
