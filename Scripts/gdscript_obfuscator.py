@@ -62,6 +62,8 @@ def obfuscate_gdscript(file_path, overwrite, name_length, main_folder, structure
     # Function to replace names in the source code
     def replace_names(match):
         original_name = match.group(1)
+        # Skip obfuscation for important functions
+        if original_name in ["_ready", "_process"]: return match.group(0)  # Return the original match without changes
         if original_name not in name_map:
             obfuscated_name = obfuscate_name(name_length)
             name_map[original_name] = obfuscated_name
@@ -75,18 +77,14 @@ def obfuscate_gdscript(file_path, overwrite, name_length, main_folder, structure
     source = re.sub(extends_pattern, replace_names, source)
 
     # Replace instances of names throughout the code
-    for original, obfuscated in name_map.items():
-        source = re.sub(r'\b' + re.escape(original) + r'\b', obfuscated, source)
+    for original, obfuscated in name_map.items(): source = re.sub(r'\b' + re.escape(original) + r'\b', obfuscated, source)
 
     # Determine output file path
-    if overwrite:
-        output_file_path = file_path
-    else:
-        output_file_path = file_path.replace('.gd', '_obfuscated.gd')
+    if overwrite: output_file_path = file_path
+    else: output_file_path = file_path.replace('.gd', '_obfuscated.gd')
 
     # Write the obfuscated code back to the specified file
-    with open(output_file_path, 'w') as file:
-        file.write(source)
+    with open(output_file_path, 'w') as file: file.write(source)
 
     # Write the name mapping to a separate file
     if os.path.isdir(main_folder):
@@ -149,7 +147,7 @@ def main():
             overwrite = True
             
         structure_namemaps = input(f"Do you want to copy the folder structure of \"{folder_name}\" for the name map files? (yes/no): ").strip().lower() == 'yes'
-        namemaps_folder_path = os.path.basename(folder_path) + '_name_maps'
+        namemaps_folder_path = folder_path + '_name_maps'
         if structure_namemaps: copy_folder_structure(input_path, namemaps_folder_path)
         else: os.makedirs(namemaps_folder_path, exist_ok=True)
             
