@@ -31,8 +31,7 @@ def check_for_obfuscated_suffix(file_path):
       return file_path, filename_ob, mapping_file
 
 def restore_gdscript(obfuscated_file_path, mapping_file_path, overwrite):
-    with open(obfuscated_file_path, 'r') as file:
-        obfuscated_source = file.read()
+    with open(obfuscated_file_path, 'r') as file: obfuscated_source = file.read()
 
     # Read the name mapping from the mapping file
     name_map = {}
@@ -46,14 +45,11 @@ def restore_gdscript(obfuscated_file_path, mapping_file_path, overwrite):
         obfuscated_source = re.sub(r'\b' + re.escape(obfuscated) + r'\b', original, obfuscated_source)
 
     # Determine output file path
-    if overwrite:
-        output_file_path = obfuscated_file_path.replace('_obfuscated.gd', '.gd')
-    else:
-        output_file_path = obfuscated_file_path.replace('.gd', '_restored.gd')
+    if overwrite: output_file_path = obfuscated_file_path.replace('_obfuscated.gd', '.gd')
+    else: output_file_path = obfuscated_file_path.replace('.gd', '_restored.gd')
 
     # Write the restored code back to the specified file
-    with open(output_file_path, 'w') as file:
-        file.write(obfuscated_source)
+    with open(output_file_path, 'w') as file: file.write(obfuscated_source)
 
 def main():
     obfuscated_file_path = input("Enter the directory or file path of the obfuscated GDScript files: ")
