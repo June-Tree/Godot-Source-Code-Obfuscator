@@ -1,4 +1,4 @@
-# <p align="center">Godot Source Code Obfuscation</p>
+# <p align="center">Godot Source Code Obfuscator</p>
 
 This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared constants, variables, functions, classes, and extends, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
 **This should be done on source files prior to exporting the game**
@@ -101,7 +101,7 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 
 ## License
 
-This project is licensed under the MIT License. See [here](https://en.wikipedia.org/wiki/MIT_License).
+This project is licensed under the MIT License. See [MIT License details](https://en.wikipedia.org/wiki/MIT_License).
 
 ## Authors notes
 
