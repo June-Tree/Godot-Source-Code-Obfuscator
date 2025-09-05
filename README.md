@@ -22,7 +22,7 @@ This repository contains a set of Python scripts designed for obfuscating and un
 
 ## Features
 
-- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of constants, variables, functions, classes, and extends.
+- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of constants, variables, functions, classes, and extends (ignoring `_ready` and `_process` functions).
 - **Unobfuscation**: Restores the original code using the generated name map.
 - **Comment Removal**: Removes comments to enhance code security.
 - **Directory Handling**: Can process both individual files and entire folders.
