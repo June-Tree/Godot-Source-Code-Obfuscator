@@ -85,13 +85,14 @@ ___
 ### Unobfuscating Code
 
 The unobfuscation process involves retrieving the scrambled data's initial form from the name map file(s) and restoring the code(s) to readable states.  
-Make sure each obfuscated `.gd` file you would like to restore has its counterpart name map `.txt` in the same folder.
+Make sure each obfuscated `.gd` file you would like to restore has its counterpart name map `.txt` in the same folder.  
+Unfortunately, at this time, comments are not retrievable
 
 #### Unobfuscating a Folder
 
 - If when obfuscating, you chose to follow the original structure of the source code, all you'd need to do is copy and paste the contents of the name map folder into the obfuscated source code folder, and each name map file will be placed next to their respective files.
 - If when obfuscating, you chose not to follow the original structure of the source code, you will need to manually copy and paste each individual `.gd` file to their counterpart's locations.  
-**Don't forget to remove the increment attached at their ends, as this will cause them to be ignored, and the restoration for the related file to be skipped**
+**Don't forget to remove any increment attached at their ends, as this will cause them to be ignored, and the restoration for the related file to be skipped.**
 
 To unobfuscate a previously obfuscated Godot source code file, use the following command:
 
