@@ -16,7 +16,7 @@ This repository contains a set of Python scripts designed for obfuscating and un
     - [Example](#unobfuscation-example)
 - [Contributing](#contributing)
 - [License](#license)
-- [Extra info](#authors-notes)
+- [Authors notes](#authors-notes)
 
 ## Features
 
@@ -111,6 +111,7 @@ Feel free to modify any sections or details to better fit your needs!
 
 ### Future plans
 
+- Comment retrieval upon unobfuscation
 - Scrambling asset names
 - Randomizing file locations (without breaking any code)
   
