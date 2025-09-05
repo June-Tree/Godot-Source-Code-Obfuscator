@@ -1,6 +1,7 @@
 # <p align="center">Godot Source Code Obfuscation</p>
 
-This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared constants, variables, functions, classes, and extends, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.
+This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared constants, variables, functions, classes, and extends, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
+**This should be done on source files prior to exporting the game**
 
 ## Table of Contents
 
@@ -57,7 +58,8 @@ python <unobfuscation_script.py>
 
 1. **Directory path (file or folder)**. The script will handle it accordingly.
 
-2. **Overwrite Original**: You will be asked if you want to overwrite the original file(s). **DO NOT SAY _"YES"_ IF THIS IS THE ONLY COPY YOU HAVE**. Saying "yes" will overwrite the file, while saying "no" will create a copy and obfuscate that.
+2. **Overwrite Original**: You will be asked if you want to overwrite the original file(s). **DO NOT SAY _"YES"_ IF THIS IS THE ONLY COPY YOU HAVE**. Saying "yes" will overwrite the file, while saying "no" will create a copy and obfuscate that instead.  
+This prompt is essentally a guard rail to prevent data loss or irreversible damage.
 
 3. **Name Length**: Enter the desired length for generated names. A number greater than 5 is recommended, and 10 or more is ideal when you have a lot of files.
 
@@ -99,7 +101,7 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 
 ## License
 
-This project is licensed under the MIT License. See the LICENSE file for details.
+This project is licensed under the MIT License. See [here](https://en.wikipedia.org/wiki/MIT_License).
 
 ## Authors notes
 
@@ -107,4 +109,9 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 Feel free to modify any sections or details to better fit your needs!
 
+### Future plans
+
+- Scrambling asset names
+- Randomizing file locations (without breaking any code)
+  
 Thanks for visiting!
