@@ -1,0 +1,110 @@
+# <p align="center">Godot Source Code Obfuscation</p>
+
+This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared constants, variables, functions, classes, and extends, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.
+
+## Table of Contents
+
+- [Features](#features)
+- [Installation](#installation)
+- [Usage](#usage)
+  - [Obfuscating Code](#obfuscating-code)
+    - [Obfuscating a File](#prompts)
+    - [Obfuscating a Folder](#obfuscating-a-folder)
+    - [Example](#obfuscation-example)
+  - [Unobfuscating Code](#unobfuscating-code)
+    - [Example](#unobfuscation-example)
+- [Contributing](#contributing)
+- [License](#license)
+- [Extra info](#authors-notes)
+
+## Features
+
+- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of constants, variables, functions, classes, and extends.
+- **Unobfuscation**: Restores the original code using the generated name map.
+- **Comment Removal**: Removes comments to enhance code security.
+- **Directory Handling**: Can process both individual files and entire folders.
+- **Name Map Generation**: Creates a `.txt` file containing the name map for each `.gd` file.
+- **Easy to Use**: Simple command-line interface for both obfuscation and unobfuscation.
+
+## Installation
+
+To use the scripts, you need to have Python 3.x installed on your PC. You can download it from [python.org](https://www.python.org/downloads/).
+
+1. Clone the repository:
+
+    ```bash
+    git clone https://github.com/June-Tree/Godot-Source-Code-Obfuscatior.git
+    cd godot-source-obfuscator
+    ```
+
+2. Install any required dependencies (if applicable):
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Usage
+
+### Obfuscating Code
+
+To obfuscate a Godot source code file or folder, run the following command:
+
+```bash
+python <unobfuscation_script.py>
+```
+
+#### Prompts
+
+1. **Directory path (file or folder)**. The script will handle it accordingly.
+
+2. **Overwrite Original**: You will be asked if you want to overwrite the original file(s). **DO NOT SAY _"YES"_ IF THIS IS THE ONLY COPY YOU HAVE**. Saying "yes" will overwrite the file, while saying "no" will create a copy and obfuscate that.
+
+3. **Name Length**: Enter the desired length for generated names. A number greater than 5 is recommended, and 10 or more is ideal when you have a lot of files.
+
+#### Obfuscating a Folder
+
+The script will walk through the provided folder and check every file in every subfolder for .gd files to obfuscate them.  
+You will be asked if you would like to copy the folder structure for the name map files.
+
+- Saying "yes" (recommended) will create a separate folder following the original structure, making unobfuscation easier.
+- Saying "no" will create a separate folder with all name maps placed in the same location. Files with the same name will have an increment attached to prevent overwriting, but you will need to manually match them during unobfuscation.
+
+#### Obfuscation example
+
+```bash
+python gdscript_obfuscator.py
+```
+
+___
+
+### Unobfuscating Code
+
+To unobfuscate a previously obfuscated Godot source code file, use the following command:
+
+```bash
+python <unobfuscation_script.py>
+```
+
+The unobfuscation process involves running the script, which will handle user prompts for file directory input and other options. Feel free to make any additional adjustments!
+
+#### Unobfuscation example
+
+```bash
+python gdscript_unobfuscator.py
+```
+
+## Contributing
+
+Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
+
+## Authors notes
+
+    I'm by no means an expert in Godot. In fact, I'm still learning how it works because I heard so much about it, and I've always wanted to make games. But... I heard about how easy it is to extract game files, access their source codes, and essentially steal from someone who likely spent a lot of time and possibly money to create something they genuinely care about. So I made these.
+
+Feel free to modify any sections or details to better fit your needs!
+
+Thanks for visiting!
