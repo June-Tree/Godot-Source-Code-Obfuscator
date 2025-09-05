@@ -27,7 +27,7 @@ This repository contains a set of Python scripts designed for obfuscating and un
 - **Comment Removal**: Removes comments to enhance code security.
 - **Directory Handling**: Can process both individual files and entire folders.
 - **Name Map Generation**: Creates a `.txt` file containing the name map for each `.gd` file.
-- **Easy to Use**: Simple command-line interface for both obfuscation and unobfuscation.
+- **Easy to Use**: Simply run the script you need directly or via a command-line interface and follow the prompts.
 
 ## Installation
 
