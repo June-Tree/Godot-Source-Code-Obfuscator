@@ -116,7 +116,8 @@ This project is licensed under the MIT License. See [MIT License details](https:
 ### Future plans
 
 - Comment retrieval upon unobfuscation
+- Scrambling scene names
 - Scrambling asset names
-- Randomizing file locations (without breaking any code)
+- Randomizing file locations
   
 Thanks for visiting!
