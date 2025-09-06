@@ -1,7 +1,8 @@
 # <p align="center">Godot Source Code Obfuscator</p>
 
 This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared constants, variables, functions, classes, and extends, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
-**This should be done on source files prior to exporting the game through the engine**
+**This should be done on source files prior to exporting the game through the engine.**  
+It works on Godot 4.0 and above
 
 ## Table of Contents
 
@@ -16,13 +17,14 @@ This repository contains a set of Python scripts designed for obfuscating and un
     - [Unobfuscating a File](#unobfuscating-code)
     - [Unobfuscating a Folder](#unobfuscating-a-folder)
     - [Example](#unobfuscation-example)
+- [Other ways to secure your code](#other-ways-to-secure-your-code)
 - [Contributing](#contributing)
 - [License](#license)
 - [Authors notes](#authors-notes)
 
 ## Features
 
-- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of constants, variables, functions, classes, and extends (ignoring `_ready` and `_process` functions).
+- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of identifiers (ignoring `_ready` and `_process` functions).
 - **Unobfuscation**: Restores the original code using the generated name map.
 - **Comment Removal**: Removes comments to enhance code security.
 - **Directory Handling**: Can process both individual files and entire folders.
@@ -100,6 +102,12 @@ python <unobfuscation_script.py>
 python gdscript_unobfuscator.py
 ```
 
+## Other ways to secure your code
+
+- Use compiled bytecode `.gdc` instead of plain text scripts
+- Enable encription when exporting
+- Encrypt Packed to secure the `.pck` file
+
 ## Contributing
 
 Contributions are welcome! If you have suggestions for improvements or new features, please open an issue or submit a pull request.
@@ -107,14 +115,13 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 ## License
 
 This project is licensed under the MIT License. See [MIT License details](https://en.wikipedia.org/wiki/MIT_License).
+Feel free to modify any sections or details to better fit your needs!
 
 ## Authors notes
 
-  I'm by no means an expert in Godot. In fact, I'm still learning how it works because I heard so much about it, and I've always wanted to make games. But...I also heard about how easy it is to extract godot game files, access their source codes, and essentially steal from someone who likely spent a lot of time and possibly money to create something they genuinely care about. So I made these.  
-  Feel free to modify any sections or details to better fit your needs!
-
 ### Future plans
 
+- Remove empty lines left after removing comments
 - Comment retrieval upon unobfuscation
 - Scrambling scene names
 - Scrambling asset names
