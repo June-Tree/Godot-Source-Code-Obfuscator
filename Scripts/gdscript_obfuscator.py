@@ -107,7 +107,7 @@ def obfuscate_gdscript(file_path, overwrite, name_length, main_folder, structure
                 file.write(f"{original} -> {obfuscated}\n")
 
 def main():
-    input_path = input("Enter the directory or file path containing GDScript files: ")
+    input_path = input("Enter the file path or directory containing GDScript files: ")
     overwrite = input("Do you want to overwrite the original files? (yes/no): ").strip().lower() == 'yes'
     name_length = int(input("Enter the desired length for generated names: "))
     #Check if name_length is a number
