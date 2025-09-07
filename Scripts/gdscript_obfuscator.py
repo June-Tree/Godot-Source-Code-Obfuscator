@@ -13,11 +13,10 @@ def copy_folder_structure(source_folder, destination_folder):
     os.makedirs(destination_folder, exist_ok=True)
 
     # Walk through the source directory
-    for folder, subfolderName, file in os.walk(source_folder):
-        # Calculate the relative path from the source directory
-        subfolder_name = os.path.relpath(folder, source_folder)
-        # Create the corresponding directory in the destination
-        destination_directory = os.path.join(destination_folder, subfolder_name)
+    for folder, subfolderNames, file in os.walk(source_folder):
+        subfolderNames[:] = [subfolder for subfolder in subfolderNames if subfolder not in [".godot"]] # Exclude the .godot folder
+        subfolder_name = os.path.relpath(folder, source_folder) # Calculate the relative path from the source directory
+        destination_directory = os.path.join(destination_folder, subfolder_name) # Create the corresponding directory in the destination
         os.makedirs(destination_directory, exist_ok=True)
 
 def increment_if_exists(file_path):
@@ -152,7 +151,7 @@ def main():
         else: os.makedirs(namemaps_folder_path, exist_ok=True)
             
         # Walk through the directory
-        for folder, subfolderName, files in os.walk(input_path):
+        for folder, subfolderNames, files in os.walk(input_path):
             for filename in files:
                 # Check if the file has a .gd extension
                 if filename.endswith('.gd') and not filename.endswith('_obfuscated.gd'):
