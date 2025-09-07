@@ -14,7 +14,7 @@ def copy_folder_structure(source_folder, destination_folder):
 
     # Walk through the source directory
     for folder, subfolderNames, file in os.walk(source_folder):
-        subfolderNames[:] = [subfolder for subfolder in subfolderNames if subfolder not in [".godot"]] # Exclude the .godot folder
+        subfolderNames[:] = [subfolder for subfolder in subfolderNames if subfolder not in [".git", ".godot"]] # Exclude folder exclusion
         subfolder_name = os.path.relpath(folder, source_folder) # Calculate the relative path from the source directory
         destination_directory = os.path.join(destination_folder, subfolder_name) # Create the corresponding directory in the destination
         os.makedirs(destination_directory, exist_ok=True)
