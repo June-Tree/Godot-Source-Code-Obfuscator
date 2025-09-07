@@ -71,7 +71,7 @@ def main():
           return
     elif os.path.isdir(obfuscated_file_path):
         # Walk through the directory
-        for folder, subfolderName, files in os.walk(obfuscated_file_path):
+        for folder, subfolderNames, files in os.walk(obfuscated_file_path):
             for filename in files:
                 # Check if the file has a .gd extension
                 if filename.endswith('.gd'):
