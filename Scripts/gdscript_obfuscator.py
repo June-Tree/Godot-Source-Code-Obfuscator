@@ -5,7 +5,6 @@ import string
 import re
 import time
 
-
 def copy_folder_structure(source_folder, destination_folder):
     #Copy the folder structure from source to destination without copying files.
     parent_folder = os.path.dirname(source_folder)
@@ -56,9 +55,8 @@ def obfuscate_gdscript(file_path, overwrite, name_length, main_folder, structure
     constant_pattern = r'\bconst\s+(\w+)'  # Matches constant declarations
     variable_pattern = r'\bvar\s+(\w+)'  # Matches variable declarations
     function_pattern = r'\bfunc\s+(\w+)'  # Matches function definitions
-    class_pattern = r'\bclass_name\s+(\w+)'    # Matches class definitions
-    # extends_pattern = r'\bextends\s+(\w+)'  # Matches class inheritance
-    # type_pattern = r'\btype\s+(\w+)'  # Matches type aliases
+    class_pattern = r'\bclass\s+(\w+)'    # Matches class definitions
+    extends_pattern = r'\bextends\s+(\w+)'  # Matches class inheritance
 
     # Function to replace names in the source code
     def replace_names(match):
@@ -75,8 +73,7 @@ def obfuscate_gdscript(file_path, overwrite, name_length, main_folder, structure
     source = re.sub(variable_pattern, replace_names, source)
     source = re.sub(function_pattern, replace_names, source)
     source = re.sub(class_pattern, replace_names, source)
-    # source = re.sub(extends_pattern, replace_names, source)
-    source = re.sub(type_pattern, replace_names, source)
+    source = re.sub(extends_pattern, replace_names, source)
 
     # Replace instances of names throughout the code
     for original, obfuscated in name_map.items(): source = re.sub(r'\b' + re.escape(original) + r'\b', obfuscated, source)
