@@ -58,7 +58,7 @@ def obfuscate_gdscript(file_path, overwrite, name_length, main_folder, structure
     function_pattern = r'\bfunc\s+(\w+)'  # Matches function definitions
     class_pattern = r'\bclass_name\s+(\w+)'    # Matches class definitions
     # extends_pattern = r'\bextends\s+(\w+)'  # Matches class inheritance
-    type_pattern = r'\btype\s+(\w+)'  # Matches type aliases
+    # type_pattern = r'\btype\s+(\w+)'  # Matches type aliases
 
     # Function to replace names in the source code
     def replace_names(match):
