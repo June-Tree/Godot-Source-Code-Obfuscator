@@ -24,9 +24,7 @@ It works on Godot 4.0 and above
 
 ## Features
 
-- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of identifiers
-  - Ignoring `_ready` and `_process` functions
-  - Including type aliases
+- **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of identifiers (ignoring `_ready` and `_process` functions).
 - **Unobfuscation**: Restores the original code using the generated name map.
 - **Comment Removal**: Removes comments to enhance code security.
 - **Directory Handling**: Can process both individual files and entire folders.
@@ -106,7 +104,6 @@ python gdscript_unobfuscator.py
 
 ## Other ways to secure your code
 
-- Use type aliases
 - Use compiled bytecode `.gdc` instead of plain text scripts
 - Enable encription when exporting
 - Encrypt Packed to secure the `.pck` file
@@ -126,7 +123,6 @@ Feel free to modify any sections or details to better fit your needs!
 
 - Remove empty lines left after removing comments
 - Comment retrieval upon unobfuscation
-- Obfuscate used-defined extends (across files)
 - Scrambling scene names
 - Scrambling asset names
 - Randomizing file locations
