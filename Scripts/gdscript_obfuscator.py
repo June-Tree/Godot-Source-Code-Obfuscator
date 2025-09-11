@@ -27,12 +27,14 @@ def obfuscate_gdscript(file_path, overwrite, name_length, input_path, relative_p
                 "func": {},
                 "class_name": {}
             },
-            "comments": {}
+            "comments": {},
+            "lines": {}
         }
     }
 
     identifiers = []
     obfuscated_code = []
+    empty_lines = []
 
     #Collect data from the .gd file.
     with open(file_path, 'r') as file: lines = file.readlines()
@@ -42,12 +44,17 @@ def obfuscate_gdscript(file_path, overwrite, name_length, input_path, relative_p
         comment_match = re.search(r'#.*$', line)
         if comment_match:
             comment = comment_match.group(0).strip() # Get the entire comment
-            comment_start = comment_match.start(0)  # Get the start position of the comment
+            comment_start = comment_match.start(0) # Get the start position of the comment
             obfuscation_data[file_name]["comments"][comment] = {
                 "line_number": line_number+1,
                 "starting_index": comment_start
             } # Store the comment with details on its exact location
-        
+            if comment_start == 0: empty_lines.append(line_number+1) # Include comment locations in empty lines
+
+        #Save empty line locations
+        if line.strip() == "":
+            empty_lines.append(line_number+1)
+
         # Obfuscate identifiers
         def replace_names(keyword, match):
             name_map = obfuscation_data[file_name]["name_map"]
@@ -62,7 +69,7 @@ def obfuscate_gdscript(file_path, overwrite, name_length, input_path, relative_p
         for keyword in obfuscation_data[file_name]["name_map"]:
             if keyword == "class_name": pass
             else:
-                pattern = re.compile(rf'^\s*\b{re.escape(keyword)}\b\s+([^:\W]+)')  # General match for identifiers
+                pattern = re.compile(rf'^\s*\b{re.escape(keyword)}\b\s+([^:\W]+)') # General match for identifiers
                 match = pattern.search(line)
                 if match:
                     identifier, obfuscated_name = replace_names(keyword, match)
@@ -79,10 +86,17 @@ def obfuscate_gdscript(file_path, overwrite, name_length, input_path, relative_p
                 obfuscated_class_name = obfuscate_name(name_length)
                 class_dict[original_class_name] = [
                     obfuscated_class_name,
-                    []  # Placeholder for referencing files
+                    [] # Placeholder for referencing files
                 ]
                 line = line.replace(original_class_name, obfuscated_class_name)
+    
+    # Save empty line details
+    obfuscation_data[file_name]["lines"] = {
+        "line_total": sum(1 for line in lines),
+        "empty_lines": empty_lines
+    }
 
+    # Save obfuscated code to file
     for line_number, line in enumerate(lines):
         for comment, details in obfuscation_data[file_name]["comments"].items():
             if line_number + 1 == details["line_number"]: 
@@ -93,6 +107,7 @@ def obfuscate_gdscript(file_path, overwrite, name_length, input_path, relative_p
                     obfuscated_name = keyword[identifier]
                     line = line.replace(identifier, obfuscated_name)
         obfuscated_code.append(line)
+    obfuscated_code = [line for line_num, line in enumerate(obfuscated_code) if line_num + 1 not in empty_lines] # Remove empty lines
     with open(output_file_path, 'w') as file: file.writelines(obfuscated_code)
 
     # Obfuscation data cleanup
@@ -105,14 +120,15 @@ def obfuscate_gdscript(file_path, overwrite, name_length, input_path, relative_p
         del obfuscation_data[file_name]["name_map"][keyword]
         # Remove comments dictionary if empty
     if obfuscation_data[file_name]["comments"] == {}: del obfuscation_data[file_name]["comments"]
+    if obfuscation_data[file_name]["lines"]["empty_lines"] == []: del obfuscation_data[file_name]["lines"]
 
     return obfuscation_data
 
 def main():
     input_path = input("Enter a file path or directory containing GDScript files: ")
     # Cleanup input
-    input_path = input_path.replace("'", "") # Remove single quotes
-    input_path = input_path.replace('"', "") # Remove double quotes
+    input_path = input_path.replace("'", "") # Remove any single quotes
+    input_path = input_path.replace('"', "") # Remove any double quotes
 
     overwrite = input("Do you want to overwrite the file provided? (yes/no): ").strip().lower() == "yes"
     
@@ -165,9 +181,9 @@ def main():
                 if remove_vc:
                     git_folder = os.path.join(folder, ".git")
                     # Forcefully delete the .git directory using system command
-                    if os.name == "nt":  # For Windows
+                    if os.name == "nt": # For Windows
                         subprocess.run(['rmdir', '/s', '/q', git_folder], check=True, shell=True)
-                    else:  # For Linux or macOS
+                    else: # For Linux or macOS
                         subprocess.run(['rm', '-rf', git_folder], check=True)
                     print(f"Version control removed.")
             for file in files:
