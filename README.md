@@ -61,7 +61,7 @@ python <unobfuscation_script.py>
 <sub>Please provide an absolute path for accuracy</sub>
 
 2. **Overwrite Original**: You will be asked if you want to overwrite the file/folder provided. **DO NOT SAY _"YES"_ IF THIS IS THE ONLY COPY YOU HAVE**. Saying "yes" will overwrite the file, while saying "no" will create a copy and obfuscate that instead.  
-This prompt is essentally a guard rail to prevent data loss or irreversible damage.
+This prompt is essentially a guard rail to prevent data loss or irreversible damage.
 
 3. **Name Length**: Enter the desired length for generated names. A number greater than 5 is recommended, and 10 or more is ideal when you have a lot of files, but if you really want to go crazy with it, numbers in the triple or quadruple digits would be fine as well.  
 <sub>You can write a 100, and you will get a hundred characters. It's a minimum of 1, but there isn't really any maximum .^_^.</sub>
