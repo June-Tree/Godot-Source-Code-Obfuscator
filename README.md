@@ -1,6 +1,6 @@
 # <p align="center">Godot Source Code Obfuscator</p>
 
-This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared identifiers, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
+This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files.  The obfuscation process scrambles the names of declared identifiers, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
 **This should be done on source files prior to exporting the game through the engine.**  
 It works on Godot 4.0 and above
 
@@ -15,22 +15,23 @@ It works on Godot 4.0 and above
     - [Example](#obfuscation-example)
   - [Unobfuscating Code](#unobfuscating-code)
     - [Unobfuscating a File](#unobfuscating-code)
-    - [Unobfuscating a Folder](#unobfuscating-a-folder)
     - [Example](#unobfuscation-example)
-- [Other ways to secure your code](#other-ways-to-secure-your-code)
+- [Extra info](#final-notes)
+- [Other ways to help secure your code](#other-ways-to-help-secure-your-code)
 - [Contributing](#contributing)
 - [License](#license)
-- [Authors notes](#authors-notes)
 
 ## Features
 
 - **Obfuscation**: Convert readable Godot source code into a less understandable format by scrambling the names of identifiers.
-  - Ignoring `_ready` and `_process` functions
   - Including typed variable declarations (type aliases) and class definitions
+  - Ignoring system functions
 - **Comment Removal**: Removes comments to enhance code security.
 - **Directory Handling**: Can process both individual files and entire folders.
-- **Name Map Generation and Comments Backup**: Creates a `.json` file containing name and comment maps for each `.gd` file.
-- **De-initializing (version control features and history removal)**: Removes any .git folder present in the root folder (if provided).
+- **Name Map Generation and Comments Backup**: Creates a `.json` file containing name and comment maps for each `.gd` file.  
+<sub>The `.json` file is just the file or folder name paired with `_obfuscation_data` at the end, so `scriptFileOrFolderName_obfuscation_data.json`.  
+If at any point you change the name of the original, you will need to change its name in the data file's name as well so the unobfuscation script can find it.</sub>
+- **De-initializing (version control features and history removal)**: Removes any .git folder present in the root folder.
 - **Unobfuscation**: Restores the original code using the generated obfuscation data.
 - **Easy to Use**: Simply run the script you need directly or via a command-line interface and follow the prompts.
 
@@ -61,7 +62,7 @@ python <unobfuscation_script.py>
 <sub>Please provide an absolute path for accuracy</sub>
 
 2. **Overwrite Original**: You will be asked if you want to overwrite the file/folder provided. **DO NOT SAY _"YES"_ IF THIS IS THE ONLY COPY YOU HAVE**. Saying "yes" will overwrite the file, while saying "no" will create a copy and obfuscate that instead.  
-This prompt is essentally a guard rail to prevent data loss or irreversible damage.
+This prompt is essentially a guard rail to prevent data loss or irreversible damage.
 
 3. **Name Length**: Enter the desired length for generated names. A number greater than 5 is recommended, and 10 or more is ideal when you have a lot of files, but if you really want to go crazy with it, numbers in the triple or quadruple digits would be fine as well.  
 <sub>You can write a 100, and you will get a hundred characters. It's a minimum of 1, but there isn't really any maximum .^_^.</sub>
@@ -84,7 +85,7 @@ ___
 ### Unobfuscating Code
 
 The unobfuscation process involves retrieving the scrambled data's initial form from the obfuscation data file and restoring the code(s) to a readable state. Comments are also restored.  
-**Please ensure relevant obfuscation data `.json` is in the same directory as the file/folder provided.**
+**Please ensure that the relevant obfuscation data `.json` is in the same directory as the file/folder provided.**
 
 To unobfuscate a previously obfuscated Godot source code file, use the following command:
 
@@ -98,6 +99,19 @@ python <unobfuscation_script.py>
 python gdscript_unobfuscator.py
 ```
 
+## Final notes
+
+Make sure to store the obfuscation data file in a safe location.  
+<sub>The goal for this is to provide a lightweight means to obfuscate and retrieve obfuscated code, should you loose the original and only have access to obfuscated code. </sub>
+
+If you're looking for a plugin for use from within godot itself, [GDMaim](https://github.com/cherriesandmochi/gdmaim) is an excellent tool for that.
+
+### Future plans
+
+- Scrambling scene names
+- Scrambling asset names
+- Randomizing file locations
+
 ## Other ways to help secure your code
 
 - Use compiled bytecode `.gdc` instead of plain text scripts
@@ -110,15 +124,9 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 
 ## License
 
-This project is licensed under the MIT License. See [MIT License details](https://en.wikipedia.org/wiki/MIT_License).
+This project is licensed under the MIT License. See [LICENSE](LICENSE) for more details.
 Feel free to modify any sections or details to better fit your needs!
 
-## Authors notes
+<br/>
 
-### Future plans
-
-- Scrambling scene names
-- Scrambling asset names
-- Randomizing file locations
-  
-Thanks for visiting!
+<div align="center">Thanks for visiting! O<sub> _ </sub>O</div>
