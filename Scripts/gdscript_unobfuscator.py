@@ -10,7 +10,7 @@ def remove_suffix(name, suffix):
     return name
 
 def check_for_obfuscation_suffixes(file_path):
-    #Create a variable that has (forcefully) has the obfuscated suffix
+    # Create a variable that has (forcefully) has the obfuscated suffix
     suffixes = ["_obfuscated.gd", ".gd"]
     # Check and remove the suffix to get the base name
     for suffix in suffixes:
@@ -24,23 +24,26 @@ def check_for_obfuscation_suffixes(file_path):
     folder = file_path.rsplit("/", 1)[0]
     if file_path.endswith("_obfuscated.gd"):
         return file_path, filename_ob, mapping_file
-    else: #Look for a duplicate with the obfuscated suffix
+    else: # Look for a duplicate with the obfuscated suffix
       for file in folder:
-        if file.endswith("_obfuscated.gd") and remove_suffix(file, "_obfuscated.gd") == remove_suffix(file_path, ".gd"): #Compare files
+        if file.endswith("_obfuscated.gd") and remove_suffix(file, "_obfuscated.gd") == remove_suffix(file_path, ".gd"): # Compare files
           obfuscated_file = os.path.join(folder, file)
           return obfuscated_file, filename_ob, mapping_file
-      #Then either the original file was overwritten, or no obfuscated version exists
+      # Then either the original file was overwritten, or no obfuscated version exists
       return file_path, filename_ob, mapping_file
 
-def restore_gdscript(obfuscated_file_path, mapping_file_path, overwrite, isDirectory, relative_path):
+def restore_gdscript(obfuscated_file_path, mapping_file_path, canOverwrite, isDirectory, relative_path="./"):
     # Determine output file path
     if not isDirectory:
-        if overwrite: output_file_path = obfuscated_file_path.replace("_obfuscated.gd", ".gd")
-        else:
-            if obfuscated_file_path.endswith("_obfuscated.gd") : output_file_path = obfuscated_file_path.replace("_obfuscated.gd", "_restored.gd")
+        if not canOverwrite:
+            print("Creating duplicate file...")
+            if obfuscated_file_path.endswith("_obfuscated.gd"): output_file_path = obfuscated_file_path.replace("_obfuscated.gd", "_restored.gd")
             else: output_file_path = obfuscated_file_path.replace(".gd", "_restored.gd")
+        else:
+            output_file_path = obfuscated_file_path.replace("_obfuscated.gd", ".gd")
     else: output_file_path = obfuscated_file_path
     
+    line_total = 0
     obfuscated_code = []
     obfuscated_content = []
     identifiers = {}
@@ -106,23 +109,23 @@ def restore_gdscript(obfuscated_file_path, mapping_file_path, overwrite, isDirec
     # Write the restored code back to the specified file
     with open(output_file_path, 'w') as file: file.writelines(restored_code)
 
-    #Display the outcome
+    # Display the outcome
     if not identifiersPresent: print("No identifers found.")
     else: print("Identifiers restored.")
     if not commentsPresent: print("No comments found.")
     else: print("Comments restored.")
     if empty_lines != []: print("Line spacing restored.")
-    if identifiersPresent or commentsPresent: print("Restoration complete.")
+    if identifiersPresent or commentsPresent: print(f"Restoration complete for \"{os.path.basename(obfuscated_file_path)}\".")
 
 def main():
     input_path = input("Enter a file path or directory containing obfuscated GDScript files: ")
     # Cleanup input
     input_path = input_path.replace("'", "") # Remove single quotes
-    input_path = input_path.replace('"', "") # Remove double quotes
+    input_path = input_path.replace('"', '') # Remove double quotes
 
-    overwrite = input("Do you want to overwrite the file provided? (yes/no): ").strip().lower() == "yes"
+    canOverwrite = input("Do you want to overwrite the file provided? (yes/no): ").strip().lower() == "yes"
     
-    delete_obfuscated_code = input("Do you want to delete the obfuscated data after restoration? (yes/no): ").strip().lower() == "yes"
+    canDeleteData = input("Do you want to delete the obfuscated data after restoration? (yes/no): ").strip().lower() == "yes"
 
     # Check if the input is a directory or a file
     isDirectory = os.path.isdir(input_path)
@@ -130,11 +133,12 @@ def main():
         obfuscated_file_path, filename_ob, mapping_file = check_for_obfuscation_suffixes(input_path)
         if os.path.exists(mapping_file): 
             print(f"Restoring original code with \"{os.path.basename(mapping_file)}\"...")
-            restore_gdscript(obfuscated_file_path, mapping_file, overwrite, isDirectory, relative_path="./")
+            print("...")
+            restore_gdscript(obfuscated_file_path, mapping_file, canOverwrite, isDirectory)
 
             # Delete files when done
-            if delete_obfuscated_code:
-                if not overwrite: os.remove(filename_ob)
+            if canDeleteData:
+                if not canOverwrite: os.remove(filename_ob)
                 os.remove(mapping_file)
                 print("Obfuscated code and obfuscation data file deleted")
         else:
@@ -153,22 +157,27 @@ def main():
         else: mapping_file = input_path + "_obfuscation_data.json"
         
         # Determine overwrite status
-        if not overwrite:
+        if not canOverwrite:
             # Create the new folder path for obfuscation
             if input_path.endswith("_obfuscated"): restored_folder_path = input_path[:-len("_obfuscated")] + "_restored"
             else: restored_folder_path = input_path + "_restored"
             if os.path.exists(restored_folder_path):
-                overwrite_res = input(f"There is already a folder called {os.path.basename(restored_folder_path)}. Do you want to overwrite it? (yes/no): ").strip().lower() == "yes"
-                if overwrite_res:
+                canOverwrite_res = input(f"There is already a folder called \"{os.path.basename(restored_folder_path)}\". Do you want to overwrite it? (yes/no): ").strip().lower() == "yes"
+                if canOverwrite_res:
                     shutil.rmtree(restored_folder_path)
                     shutil.copytree(input_path, restored_folder_path)
-                    print(f"Restoring the source code in \"{os.path.basename(input_path)}\" as \"{os.path.basename(restored_folder_path)}\"...")
+                    print(f"\"{os.path.basename(restored_folder_path)}\" overwritten.")
+                    print(f"Obfuscating source code in \"{os.path.basename(restored_folder_path)}\"...")
                 else:
                     print("Terminating operation...")
+                    print("...")
                     time.sleep(1)
                     print("Operation terminated.")
                     return
-            else: shutil.copytree(input_path, restored_folder_path)
+            else:
+                shutil.copytree(input_path, restored_folder_path)
+                print("Duplicate folder created.")
+                print(f"Restoring the source code in \"{os.path.basename(input_path)}\" as \"{os.path.basename(restored_folder_path)}\"...")
             obfuscated_folder_path = input_path
             input_path = restored_folder_path
         
@@ -180,14 +189,13 @@ def main():
                     if file.endswith(".gd"):
                         file_path = os.path.join(folder, file)
                         relative_path = os.path.relpath(file_path, mapping_file)[3:]
-                        if not overwrite: 
-                            objective_relative_path = os.path.join(objective_root_folder, os.path.join(*relative_path.split(os.sep)[1:]))
-                            relative_path = objective_relative_path
+                        objective_relative_path = os.path.join(objective_root_folder, os.path.join(*relative_path.split(os.sep)[1:])) # Relative path regardless of if the root folder has a suffix attached
                         print(f"Restoring the original code in \"{file}\"...")
-                        restore_gdscript(file_path, mapping_file, overwrite, isDirectory, relative_path)
+                        print("...")
+                        restore_gdscript(file_path, mapping_file, canOverwrite, isDirectory, objective_relative_path)
             #Delete files when done
-            if delete_obfuscated_code:
-                if not overwrite: os.remove(obfuscated_folder_path)
+            if canDeleteData:
+                if not canOverwrite: os.remove(obfuscated_folder_path)
                 os.remove(mapping_file)
                 print("Obfuscated code and obfuscation data file deleted")
         else:
