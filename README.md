@@ -1,6 +1,6 @@
 # <p align="center">Godot Source Code Obfuscator</p>
 
-This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files.  The obfuscation process scrambles the names of declared identifiers, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
+This repository contains a set of Python scripts designed for obfuscating and unobfuscating Godot source code files. The obfuscation process scrambles the names of declared identifiers, while also removing comments to render the code unreadable. A name map is generated to facilitate unobfuscation.  
 **This should be done on source files prior to exporting the game through the engine.**  
 It works on Godot 4.0 and above
 
@@ -16,10 +16,10 @@ It works on Godot 4.0 and above
   - [Unobfuscating Code](#unobfuscating-code)
     - [Unobfuscating a File](#unobfuscating-code)
     - [Example](#unobfuscation-example)
-- [Extra info](#final-notes)
 - [Other ways to help secure your code](#other-ways-to-help-secure-your-code)
 - [Contributing](#contributing)
 - [License](#license)
+- [Authors notes](#authors-notes)
 
 ## Features
 
@@ -29,7 +29,7 @@ It works on Godot 4.0 and above
 - **Comment Removal**: Removes comments to enhance code security.
 - **Directory Handling**: Can process both individual files and entire folders.
 - **Name Map Generation and Comments Backup**: Creates a `.json` file containing name and comment maps for each `.gd` file.
-- **De-initializing (version control features and history removal)**: Removes any .git folder present in the root folder.
+- **De-initializing (version control features and history removal)**: Removes any .git folder present in the root folder (if provided).
 - **Unobfuscation**: Restores the original code using the generated obfuscation data.
 - **Easy to Use**: Simply run the script you need directly or via a command-line interface and follow the prompts.
 
@@ -97,19 +97,6 @@ python <unobfuscation_script.py>
 python gdscript_unobfuscator.py
 ```
 
-## Final notes
-
-Make sure to store the obfuscation data file in a safe location.  
-<sub>The goal for this is to provide a lightweight means to obfuscate and retrieve obfuscated code, should you loose the original and only have access to obfuscated code. </sub>
-
-If you're looking for a plugin for use from within godot itself, [GDMaim](https://github.com/cherriesandmochi/gdmaim) is an excellent tool for that.
-
-### Future plans
-
-- Scrambling scene names
-- Scrambling asset names
-- Randomizing file locations
-
 ## Other ways to help secure your code
 
 - Use compiled bytecode `.gdc` instead of plain text scripts
@@ -125,6 +112,12 @@ Contributions are welcome! If you have suggestions for improvements or new featu
 This project is licensed under the MIT License. See [MIT License details](https://en.wikipedia.org/wiki/MIT_License).
 Feel free to modify any sections or details to better fit your needs!
 
-<br/>
+## Authors notes
 
-<div align="center">Thanks for visiting! O<sub> _ </sub>O</div>
+### Future plans
+
+- Scrambling scene names
+- Scrambling asset names
+- Randomizing file locations
+  
+Thanks for visiting!
